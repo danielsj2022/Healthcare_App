@@ -29,7 +29,7 @@ public class Patient
     public override string ToString()
     {
         string text = $"PatientId: {PatientId}\nName: {Name}\nAddress: {Address}\nBirthday: {Birthday}\n";
-        text += "Race: {Race}\tGender: {Gender}\nDiagnosis: {Diagnosis}\nPrescription: {Prescription}\n";
+        text += $"Race: {Race}\tGender: {Gender}\nDiagnosis: {Diagnosis}\nPrescription: {Prescription}\n";
         return text;
     }
     //workout perscript

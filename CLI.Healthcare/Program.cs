@@ -12,6 +12,7 @@ namespace CLI.Healthcare
             //Closed 1  (how to closse github issue)
             //List<Patient?> patients = new List<Patient?>();
             PatientHelper patientHelper = new PatientHelper();
+            PhysicianHelper physicianHelper = new PhysicianHelper();
 
             bool quitChoice = true;
 
@@ -43,6 +44,7 @@ namespace CLI.Healthcare
                         break;
                     case "c2":
                     case "C2":
+                        physicianHelper.CreatePhysician();
                         break;
                     case "a":
                     case "A":
@@ -56,6 +58,7 @@ namespace CLI.Healthcare
                         break;
                     case "l2":
                     case "L2":
+                        physicianHelper.ListPhysicians();
                         break;
                     case "l3":
                     case "L3":

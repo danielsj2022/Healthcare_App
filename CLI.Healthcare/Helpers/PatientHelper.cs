@@ -57,6 +57,32 @@ public class PatientHelper
         Console.WriteLine($"Patient Id is: {patient.PatientId}\n");
     }
 
+    public Patient? PatientSearchById(){
+        //need search by id
+        //1. find patient
+        
+        Console.WriteLine("Enter PatientId: ");
+        string? patientIdInput = Console.ReadLine();
+       
+        if(int.TryParse(patientIdInput, out int patientId)){
+            //look in patientList
+            Console.WriteLine("printing patinest");
+            patientService.patientsList.ForEach(Console.WriteLine);
+            var patient = patientService.patientsList
+                .Where(p => p != null)
+                .FirstOrDefault(p => p.PatientId == patientId);
+            if (patient == null)
+            {
+                Console.WriteLine("Patient not found");
+            } else{ 
+                return patient; 
+            }
+        } else{
+            Console.WriteLine("Invalid patient Id");
+        }
+        return null;
+        
+    }
     public void ListPatients(){
         patientService.patientsList.ForEach(Console.WriteLine);
     }

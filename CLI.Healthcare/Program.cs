@@ -13,6 +13,7 @@ namespace CLI.Healthcare
             //List<Patient?> patients = new List<Patient?>();
             PatientHelper patientHelper = new PatientHelper();
             PhysicianHelper physicianHelper = new PhysicianHelper();
+            AppointmentHelper appointmentHelper = new AppointmentHelper();
 
             bool quitChoice = true;
 
@@ -48,6 +49,7 @@ namespace CLI.Healthcare
                         break;
                     case "a":
                     case "A":
+                        appointmentHelper.CreateAppointment(patientHelper, physicianHelper);
                         break;
                     case "l1":
                     case "L1":
@@ -62,6 +64,7 @@ namespace CLI.Healthcare
                         break;
                     case "l3":
                     case "L3":
+                        appointmentHelper.ListAppointments();
                         break;
                     case "u1":
                     case "U1":

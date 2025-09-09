@@ -30,16 +30,18 @@ public class AppointmentHelper
     }
     private string TimeChecker(){
         bool timeLoop = false;
-        int[] invalidAm = [1, 2, 3, 4, 5, 12];
-        int[] invalidPm = [8, 9, 10, 11];
+        int[] invalidAm = [1, 2, 3, 4, 5, 6, 7, 12];
+        int[] invalidPm = [6, 7, 8, 9, 10, 11];
         do{
             Console.Write("Enter desired time (number only ##:##): ");
             string? timeDigits = Console.ReadLine(); //11:30 1:30  10
             timeDigits ??= "6";
-            while(timeDigits.StartsWith("6") || timeDigits.StartsWith("7") || (!char.IsDigit(timeDigits[0]))){
-                Console.Write("Time is outside of window. Re-enter: ");
+            // while(timeDigits.StartsWith("6") || timeDigits.StartsWith("7") || (!char.IsDigit(timeDigits[0]))){
+            while(!char.IsDigit(timeDigits[0])){
+
+                Console.Write("Invalid input: ");
                 timeDigits = Console.ReadLine();
-                timeDigits ??= "6";
+                timeDigits ??= " ";
             }
             //split digits by colon if exist
             int hour;
@@ -54,11 +56,11 @@ public class AppointmentHelper
             Console.Write("am or pm: ");
             var timeOfDay = Console.ReadLine();
             timeOfDay ??="mm";  //assign to invalid value
-            while(!timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase) && !timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
-                Console.Write("Invalid time of day. Re-enter: ");
-                timeOfDay = Console.ReadLine();
-                timeOfDay ??="mm";
-            }
+            // while(!timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase) && !timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
+            //     Console.Write("Invalid time of day. Re-enter: ");
+            //     timeOfDay = Console.ReadLine();
+            //     timeOfDay ??="mm";
+            // }
             //8pm, 9pm, 10pm, 11pm, 12am, 1am, 2am, 3am, 4am, 5am not valid
             
             if(timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
@@ -69,7 +71,7 @@ public class AppointmentHelper
                 else{
                     return timeDigits + timeOfDay;
                 }
-            } else{ //if pm
+            } else if(timeOfDay.Equals("pm", StringComparison.OrdinalIgnoreCase)){ //if pm
                 if(invalidPm.Contains(hour)){
                     Console.WriteLine("Invalid time");
                     timeLoop = true;
@@ -77,6 +79,9 @@ public class AppointmentHelper
                 else{
                     return timeDigits + timeOfDay;
                 }
+            }else{
+                Console.WriteLine("Invalid time");
+                timeLoop = true;
             }
         
         }while(timeLoop);

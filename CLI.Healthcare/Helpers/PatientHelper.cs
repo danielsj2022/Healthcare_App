@@ -66,8 +66,8 @@ public class PatientHelper
        
         if(int.TryParse(patientIdInput, out int patientId)){
             //look in patientList
-            Console.WriteLine("printing patinest");
-            patientService.patientsList.ForEach(Console.WriteLine);
+            //Console.WriteLine("printing patinest");
+            //patientService.patientsList.ForEach(Console.WriteLine);
             var patient = patientService.patientsList
                 .Where(p => p != null)
                 .FirstOrDefault(p => p.PatientId == patientId);
@@ -82,6 +82,14 @@ public class PatientHelper
         }
         return null;
         
+    }
+
+    public void DeletePatient(){
+        Patient? patient = PatientSearchById();
+        if(patient != null){
+            patientService.Remove(patient);
+            Console.WriteLine("Patient deleted");
+        }
     }
     public void ListPatients(){
         patientService.patientsList.ForEach(Console.WriteLine);

@@ -13,7 +13,8 @@ public class PhysicianHelper
         
         Console.Write("Enter License number: ");
         var liscenseNumberInput = Console.ReadLine();
-        while(string.IsNullOrEmpty(liscenseNumberInput)){
+
+        while(string.IsNullOrEmpty(liscenseNumberInput) || !char.IsDigit(liscenseNumberInput[0])){
             Console.Write("Enter valid Lisence Number: ");
             liscenseNumberInput = Console.ReadLine();
         }

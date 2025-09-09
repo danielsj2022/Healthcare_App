@@ -20,7 +20,7 @@ public class Appointment
     }
     public override string ToString()
     {
-        return $"Appointment: {AppointmentId}\nPhysician: {Physician}\n{Day} at {Time}\n";
+        return $"Appointment Id: {AppointmentId}\nPhysician Name: {Physician.Name}\n{Day} at {Time}\n";
     }
 }
 

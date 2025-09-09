@@ -11,4 +11,8 @@ public class PatientService
         patientsList.Add(patient);
     }
 
+    public void Remove(Patient patient){
+        patientsList.Remove(patient);
+    }
+
 }

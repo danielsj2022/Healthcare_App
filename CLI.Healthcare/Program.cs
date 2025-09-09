@@ -74,6 +74,7 @@ namespace CLI.Healthcare
                         break;
                     case "d1":
                     case "D1":
+                        patientHelper.DeletePatient();
                         break;
                     case "d2":
                     case "D2":

@@ -6,6 +6,7 @@ namespace CLI.Healthcare.Helpers;
 
 public class PhysicianHelper
 {
+    //refactor str -> int
     PhysicianService physicianService = new PhysicianService();
 
     public void CreatePhysician(){
@@ -43,5 +44,19 @@ public class PhysicianHelper
 
     public void ListPhysicians(){
         physicianService.physiciansList.ForEach(Console.WriteLine);
+    }
+
+    public Physician? PhysicianSearchByAvailability(){
+        var physician = physicianService.physiciansList //find first avail phy
+            .Where(p => p != null)
+            .FirstOrDefault(p => p.Availability == true);
+
+        if(physician != null){
+            physician.Availability = false; //set availability
+            return physician;
+        } else{
+            Console.WriteLine("No physicians available");
+            return null;
+        }
     }
 }

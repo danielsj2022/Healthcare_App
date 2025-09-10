@@ -26,6 +26,7 @@ namespace CLI.Healthcare
                 Console.WriteLine("l2 - list physicians");
                 Console.WriteLine("l3 - list appointments");
                 Console.WriteLine("u1 - update patient");
+                Console.WriteLine("u2 - update physician");
                 Console.WriteLine("u3 - update appointment");
                 Console.WriteLine("d1 - delete patient");
                 Console.WriteLine("d2 - delete physician");
@@ -69,6 +70,10 @@ namespace CLI.Healthcare
                     case "u1":
                     case "U1":
                         patientHelper.UpdatePatient();
+                        break;
+                    case "u2":
+                    case "U2":
+                        physicianHelper.UpdatePhysician();
                         break;
                     case "u3":
                     case "U3":

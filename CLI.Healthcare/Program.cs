@@ -88,6 +88,7 @@ namespace CLI.Healthcare
                         break;
                     case "d3":
                     case "D3":
+                        appointmentHelper.DeleteAppointment();
                         break;
                     case "q":
                     case "Q":

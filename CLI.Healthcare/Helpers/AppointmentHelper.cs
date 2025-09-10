@@ -120,47 +120,39 @@ public class AppointmentHelper
         return Weekday.Friday;
     }
 
-    // private Patient? PatientSearchById(){
-    //     //need search by id
-    //     //1. find patient
-        
-    //     Console.WriteLine("Enter PatientId: ");
-    //     string? patientIdInput = Console.ReadLine();
-       
-    //     if(int.TryParse(patientIdInput, out int patientId)){
-    //         //look in patientList
-    //         Console.WriteLine("printing patinest");
-    //         patientService.patientsList.ForEach(Console.WriteLine);
-    //         var patient = patientService.patientsList
-    //             .Where(p => p != null)
-    //             .FirstOrDefault(p => p.PatientId == patientId);
-    //         if (patient == null)
-    //         {
-    //             Console.WriteLine("Patient not found");
-    //         } else{ 
-    //             return patient; 
-    //         }
-    //     } else{
-    //         Console.WriteLine("Invalid patient Id");
-    //     }
-    //     return null;
-        
-    // }
-    // private Physician? PhysicianSearchByAvailability(){
-    //     var physician = physicianService.physiciansList //find first avail phy
-    //         .Where(p => p != null)
-    //         .FirstOrDefault(p => p.Availability == true);
+    public void DeleteAppointment(){
+        //search by id
+        Console.WriteLine("Enter Appointment Id: ");
+        var appointmentIdInput = Console.ReadLine();
+        Appointment? appointment = AppointmentSearchById(appointmentIdInput);
+        if(appointment != null){
+            appointment.Physician.Availability = true;
+            appointmentService.Remove(appointment);
+            Console.WriteLine("Appointment deleted");
 
-    //     if(physician != null){
-    //         physician.Availability = false; //set availability
-    //         return physician;
-    //     } else{
-    //         Console.WriteLine("No physicians available");
-    //         return null;
-    //     }
-    // }
+        }
 
+    }
     public void ListAppointments(){
         appointmentService.appointmentsList.ForEach(Console.WriteLine);
+    }
+
+    private Appointment? AppointmentSearchById(string? appointmentIdInput){
+        
+       
+        if(int.TryParse(appointmentIdInput, out int appointmentId)){
+            var appointment = appointmentService.appointmentsList
+                .Where(a => a != null)
+                .FirstOrDefault(a => a.AppointmentId == appointmentId);
+            if (appointment == null)
+            {
+                Console.WriteLine("Physician not found");
+            } else{ 
+                return appointment; 
+            }
+        } else{
+            Console.WriteLine("Invalid physician Id");
+        }
+        return null;
     }
 }

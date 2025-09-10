@@ -10,4 +10,7 @@ public class AppointmentService
     public void Add(Appointment appt){
         appointmentsList.Add(appt);
     }
+    public void Remove(Appointment appt){
+        appointmentsList.Remove(appt);
+    }
 }

@@ -10,4 +10,7 @@ public class PhysicianService
     public void Add(Physician physician){
         physiciansList.Add(physician);
     }
+    public void Remove(Physician physician){
+        physiciansList.Remove(physician);
+    }
 }

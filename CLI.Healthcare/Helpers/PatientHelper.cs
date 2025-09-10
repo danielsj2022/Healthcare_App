@@ -66,8 +66,8 @@ public class PatientHelper
        
         if(int.TryParse(patientIdInput, out int patientId)){
             //look in patientList
-            Console.WriteLine("printing patinest");
-            patientService.patientsList.ForEach(Console.WriteLine);
+            //Console.WriteLine("printing patinest");
+            //patientService.patientsList.ForEach(Console.WriteLine);
             var patient = patientService.patientsList
                 .Where(p => p != null)
                 .FirstOrDefault(p => p.PatientId == patientId);
@@ -82,6 +82,55 @@ public class PatientHelper
         }
         return null;
         
+    }
+
+    public void DeletePatient(){
+        Patient? patient = PatientSearchById();
+        if(patient != null){
+            patientService.Remove(patient);
+            Console.WriteLine("Patient deleted");
+        }
+    }
+
+    public void UpdatePatient(){
+        Patient? patient = PatientSearchById();
+        if(patient != null){
+            //can update: name, addy, bday, race, gender, diagnosisi, prescript
+            Console.Write(
+                "What would you like to update (name, address, birthday, race, gender, diagnosis, prescription): ");
+            var update = Console.ReadLine();
+            update ??= "no update";
+            Console.Write("Enter updated information: ");
+            var content = Console.ReadLine();
+            while(string.IsNullOrEmpty(content)){
+                Console.Write("Enter updated information: ");
+                content = Console.ReadLine();
+            }
+            if(update.Equals("name", StringComparison.OrdinalIgnoreCase)){
+                patient.Name =content;
+                Console.WriteLine("Update completed.");
+            } else if(update.Equals("address", StringComparison.OrdinalIgnoreCase)){
+                patient.Address = content;
+                Console.WriteLine("Update completed.");
+            } else if(update.Equals("birthday", StringComparison.OrdinalIgnoreCase)){
+                patient.Birthday = content;
+                Console.WriteLine("Update completed.");
+            } else if(update.Equals("race", StringComparison.OrdinalIgnoreCase)){
+                patient.Race = content;
+                Console.WriteLine("Update completed.");
+            } else if(update.Equals("gender", StringComparison.OrdinalIgnoreCase)){
+                patient.Gender = content;
+                Console.WriteLine("Update completed.");
+            } else if(update.Equals("diagnosis", StringComparison.OrdinalIgnoreCase)){
+                patient.Diagnosis = content;
+                Console.WriteLine("Update completed.");
+            } else if(update.Equals("prescription", StringComparison.OrdinalIgnoreCase)){
+                patient.Prescription = content;
+                Console.WriteLine("Update completed.");
+            } else{
+                Console.WriteLine("Invalid field. Back to main menu;");
+            }
+        }
     }
     public void ListPatients(){
         patientService.patientsList.ForEach(Console.WriteLine);

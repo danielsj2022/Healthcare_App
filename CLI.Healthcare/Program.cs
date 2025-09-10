@@ -68,6 +68,7 @@ namespace CLI.Healthcare
                         break;
                     case "u1":
                     case "U1":
+                        patientHelper.UpdatePatient();
                         break;
                     case "u3":
                     case "U3":
@@ -78,6 +79,7 @@ namespace CLI.Healthcare
                         break;
                     case "d2":
                     case "D2":
+                        physicianHelper.DeletePhysicain();
                         break;
                     case "d3":
                     case "D3":

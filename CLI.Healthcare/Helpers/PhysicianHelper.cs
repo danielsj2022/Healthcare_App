@@ -60,4 +60,32 @@ public class PhysicianHelper
             return null;
         }
     }
+
+    public void DeletePhysicain(){
+        Physician? physician = PhysicianSearchById();
+        if(physician != null){
+            physicianService.Remove(physician);
+            Console.WriteLine("Physician deleted");
+        }
+    }
+
+    private Physician? PhysicianSearchById(){
+        Console.WriteLine("Enter PatientId: ");
+        string? physicianIdInput = Console.ReadLine();
+       
+        if(int.TryParse(physicianIdInput, out int physicianId)){
+            var physician = physicianService.physiciansList
+                .Where(p => p != null)
+                .FirstOrDefault(p => p.PhysicianId == physicianId);
+            if (physician == null)
+            {
+                Console.WriteLine("Physician not found");
+            } else{ 
+                return physician; 
+            }
+        } else{
+            Console.WriteLine("Invalid physician Id");
+        }
+        return null;
+    }
 }

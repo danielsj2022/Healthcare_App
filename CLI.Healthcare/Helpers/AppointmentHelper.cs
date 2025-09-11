@@ -24,70 +24,37 @@ public class AppointmentHelper
                 Console.WriteLine("No physicians availabe. Appointment cannot be booked.");
             }
         }
-        //find doctor
-        //create appt
-        
-    }
-    private string TimeChecker(){
-        bool timeLoop = false;
-        int[] invalidAm = [1, 2, 3, 4, 5, 6, 7, 12];
-        int[] invalidPm = [6, 7, 8, 9, 10, 11];
-        do{
-            Console.Write("Enter desired time (number only ##:##): ");
-            string? timeDigits = Console.ReadLine(); //11:30 1:30  10
-            timeDigits ??= "6";
-            // while(timeDigits.StartsWith("6") || timeDigits.StartsWith("7") || (!char.IsDigit(timeDigits[0]))){
-            while(!char.IsDigit(timeDigits[0])){
-
-                Console.Write("Invalid input: ");
-                timeDigits = Console.ReadLine();
-                timeDigits ??= " ";
-            }
-            //split digits by colon if exist
-            int hour;
-            if(timeDigits.Contains(':')){
-                string[] splitTime = timeDigits.Split(':');
-                hour = int.Parse(splitTime[0]);
-            } else{
-                hour = int.Parse(timeDigits);
-            }
-            //check hr
-
-            Console.Write("am or pm: ");
-            var timeOfDay = Console.ReadLine();
-            timeOfDay ??="mm";  //assign to invalid value
-            // while(!timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase) && !timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
-            //     Console.Write("Invalid time of day. Re-enter: ");
-            //     timeOfDay = Console.ReadLine();
-            //     timeOfDay ??="mm";
-            // }
-            //8pm, 9pm, 10pm, 11pm, 12am, 1am, 2am, 3am, 4am, 5am not valid
-            
-            if(timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
-                if(invalidAm.Contains(hour)){
-                    Console.WriteLine("Invalid time");
-                    timeLoop = true;
-                }
-                else{
-                    return timeDigits + timeOfDay;
-                }
-            } else if(timeOfDay.Equals("pm", StringComparison.OrdinalIgnoreCase)){ //if pm
-                if(invalidPm.Contains(hour)){
-                    Console.WriteLine("Invalid time");
-                    timeLoop = true;
-                }
-                else{
-                    return timeDigits + timeOfDay;
-                }
-            }else{
-                Console.WriteLine("Invalid time");
-                timeLoop = true;
-            }
-        
-        }while(timeLoop);
-        return "error";        
 
     }
+
+    public void DeleteAppointment(){
+        //search by id
+        Console.WriteLine("Enter Appointment Id: ");
+        var appointmentIdInput = Console.ReadLine();
+        Appointment? appointment = AppointmentSearchById(appointmentIdInput);
+        if(appointment != null){
+            appointment.Physician.Availability = true;
+            appointmentService.Remove(appointment);
+            Console.WriteLine("Appointment deleted");
+        }
+    }
+
+    public void UpdateAppointment(){
+        Console.WriteLine("Enter Appointment Id: ");
+        var appointmentIdInput = Console.ReadLine();
+        Appointment? appointment = AppointmentSearchById(appointmentIdInput);
+        if(appointment != null){
+            //update day and time
+            Weekday weekday = DayChecker();
+            String time = TimeChecker();
+            appointment.Day = weekday;
+            appointment.Time = time;
+        }
+    }
+    public void ListAppointments(){
+        appointmentService.appointmentsList.ForEach(Console.WriteLine);
+    }
+
     private Weekday DayChecker(){
         Console.WriteLine("Enter desired weekday (M, T, W, TH, F): ");
         string? day = Console.ReadLine();
@@ -120,47 +87,76 @@ public class AppointmentHelper
         return Weekday.Friday;
     }
 
-    // private Patient? PatientSearchById(){
-    //     //need search by id
-    //     //1. find patient
+    private string TimeChecker(){
+        bool timeLoop = false;
+        int[] invalidAm = [1, 2, 3, 4, 5, 6, 7, 12];
+        int[] invalidPm = [5, 6, 7, 8, 9, 10, 11];
+        do{
+            Console.Write("Enter desired time (number only ##:##): ");
+            string? timeDigits = Console.ReadLine(); //11:30 1:30  10
+            timeDigits ??= "6";
+            while(!char.IsDigit(timeDigits[0])){
+
+                Console.Write("Invalid input: ");
+                timeDigits = Console.ReadLine();
+                timeDigits ??= " ";
+            }
+            //split digits by colon if exist
+            int hour;
+            if(timeDigits.Contains(':')){
+                string[] splitTime = timeDigits.Split(':');
+                hour = int.Parse(splitTime[0]);
+            } else{
+                hour = int.Parse(timeDigits);
+            }
+            //check hr
+
+            Console.Write("am or pm: ");
+            var timeOfDay = Console.ReadLine();
+            timeOfDay ??="mm";  //assign to invalid value
+            //8pm, 9pm, 10pm, 11pm, 12am, 1am, 2am, 3am, 4am, 5am not valid
+            
+            if(timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
+                if(invalidAm.Contains(hour)){
+                    Console.WriteLine("Invalid time");
+                    timeLoop = true;
+                }
+                else{
+                    return timeDigits + timeOfDay;
+                }
+            } else if(timeOfDay.Equals("pm", StringComparison.OrdinalIgnoreCase)){ //if pm
+                if(invalidPm.Contains(hour)){
+                    Console.WriteLine("Invalid time");
+                    timeLoop = true;
+                }
+                else{
+                    return timeDigits + timeOfDay;
+                }
+            }else{
+                Console.WriteLine("Invalid time");
+                timeLoop = true;
+            }
         
-    //     Console.WriteLine("Enter PatientId: ");
-    //     string? patientIdInput = Console.ReadLine();
+        }while(timeLoop);
+        return "error";        
+
+    }
+    private Appointment? AppointmentSearchById(string? appointmentIdInput){
+        
        
-    //     if(int.TryParse(patientIdInput, out int patientId)){
-    //         //look in patientList
-    //         Console.WriteLine("printing patinest");
-    //         patientService.patientsList.ForEach(Console.WriteLine);
-    //         var patient = patientService.patientsList
-    //             .Where(p => p != null)
-    //             .FirstOrDefault(p => p.PatientId == patientId);
-    //         if (patient == null)
-    //         {
-    //             Console.WriteLine("Patient not found");
-    //         } else{ 
-    //             return patient; 
-    //         }
-    //     } else{
-    //         Console.WriteLine("Invalid patient Id");
-    //     }
-    //     return null;
-        
-    // }
-    // private Physician? PhysicianSearchByAvailability(){
-    //     var physician = physicianService.physiciansList //find first avail phy
-    //         .Where(p => p != null)
-    //         .FirstOrDefault(p => p.Availability == true);
-
-    //     if(physician != null){
-    //         physician.Availability = false; //set availability
-    //         return physician;
-    //     } else{
-    //         Console.WriteLine("No physicians available");
-    //         return null;
-    //     }
-    // }
-
-    public void ListAppointments(){
-        appointmentService.appointmentsList.ForEach(Console.WriteLine);
+        if(int.TryParse(appointmentIdInput, out int appointmentId)){
+            var appointment = appointmentService.appointmentsList
+                .Where(a => a != null)
+                .FirstOrDefault(a => a.AppointmentId == appointmentId);
+            if (appointment == null)
+            {
+                Console.WriteLine("Appointment not found");
+            } else{ 
+                return appointment; 
+            }
+        } else{
+            Console.WriteLine("Invalid appointment Id");
+        }
+        return null;
     }
 }

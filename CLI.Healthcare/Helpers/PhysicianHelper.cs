@@ -104,7 +104,7 @@ public class PhysicianHelper
     }
 
     private Physician? PhysicianSearchById(){
-        Console.WriteLine("Enter PatientId: ");
+        Console.WriteLine("Enter Physician Id: ");
         string? physicianIdInput = Console.ReadLine();
        
         if(int.TryParse(physicianIdInput, out int physicianId)){

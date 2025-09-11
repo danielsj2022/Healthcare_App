@@ -77,6 +77,7 @@ namespace CLI.Healthcare
                         break;
                     case "u3":
                     case "U3":
+                        appointmentHelper.UpdateAppointment();
                         break;
                     case "d1":
                     case "D1":

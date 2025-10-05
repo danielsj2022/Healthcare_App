@@ -22,4 +22,9 @@
         Title="Physician"
         ContentTemplate="{DataTemplate views:PhysicianView}"
         Route="Physician"/>
+
+    <ShellContent
+        Title="AddPhysician"
+        ContentTemplate="{DataTemplate views:AddPhysicianView}"
+        Route="AddPhysician"/>
 </Shell>

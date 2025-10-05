@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Healthcare.Views.AddPhysicianView"
+             Title="AddPhysician">
+    <VerticalStackLayout>
+        <Label Text="Lisence Number"></Label>
+        <Entry Text="{Binding LicenceNumber}"></Entry>
+        <Label Text="Name"></Label>
+        <Entry Text="{Binding Name}"></Entry>
+        <Label Text="Graduatino date __/__/____"></Label>
+        <Entry Text="{Binding GradDate}"></Entry>
+        <Label Text="Specialization"></Label>
+        <Entry Text="{Binding Specialization}"></Entry>
+
+        <Button Text="Ok" 
+            Command="{Binding SubmitCommand}"
+            IsEnabled="{Binding IsFormValid}"/>
+        <Button Text="Cancel" Clicked="CancelClicked"
+            Command="{Binding CancelCommand}"></Button>
+    </VerticalStackLayout>
+</ContentPage>

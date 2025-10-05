@@ -21,6 +21,9 @@ public class Physician
         Availability = true;
     }
 
+    public string Display{
+        get { return ToString(); }
+    }
     public override string ToString()
     {
         string text = $"Physician Id: {PhysicianId}\tLicence Number: {LisenceNumber}\nName: {Name}\nGraduation Date: {GraduationDate}\n";

@@ -18,6 +18,13 @@ public partial class AddPhysicianViewModel : ObservableObject
     [ObservableProperty]
     private string specialization;
 
+    public void ResetForm(){
+        LicenceNumber = string.Empty;
+        Name = string.Empty;
+        GradDate = string.Empty;
+        Specialization = string.Empty;
+    }
+
     public bool IsFormValid =>
         !string.IsNullOrWhiteSpace(LicenceNumber) &&
         !string.IsNullOrWhiteSpace(Name) &&
@@ -39,7 +46,7 @@ public partial class AddPhysicianViewModel : ObservableObject
         int lNumber = int.Parse(LicenceNumber);
         Physician physician= new Physician(lNumber, Name, GradDate, Specialization);
         PhysicianService.Current.Add(physician);	//func is type safe
-        Console.Write(physician.ToString());
+        //Console.Write(physician.ToString());
 
         Shell.Current.GoToAsync("//Physician");
     }

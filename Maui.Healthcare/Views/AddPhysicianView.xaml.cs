@@ -18,6 +18,13 @@ public partial class AddPhysicianView : ContentPage
 		Shell.Current.GoToAsync("//Physician");
 	}
 
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+		if (BindingContext is AddPhysicianViewModel vm){
+			vm.ResetForm();
+		}
+    }
+
 	// public async void OkClicked(object sender, EventArgs e){
 	// 	//add blog
 	// 	//PhysicianService.Current.Add(BindingContext as Physician);	//func is type safe

@@ -18,11 +18,11 @@ public partial class AddPhysicianView : ContentPage
 		Shell.Current.GoToAsync("//Physician");
 	}
 
-	public async void OkClicked(object sender, EventArgs e){
-		//add blog
-		PhysicianService.Current.Add(BindingContext as Physician);	//func is type safe
+	// public async void OkClicked(object sender, EventArgs e){
+	// 	//add blog
+	// 	//PhysicianService.Current.Add(BindingContext as Physician);	//func is type safe
 
 
-		await Shell.Current.GoToAsync("//Physician");
-	}
+	// 	await Shell.Current.GoToAsync("//Physician");
+	// }
 }

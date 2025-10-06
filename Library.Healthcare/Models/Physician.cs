@@ -26,8 +26,7 @@ public class Physician
     }
     public override string ToString()
     {
-        string text = $"Physician Id: {PhysicianId}\tLicence Number: {LisenceNumber}\nName: {Name}\nGraduation Date: {GraduationDate}\n";
-        text += $"Speacialization: {Specialization}\nAvailability: {Availability}\n";
+        string text = $"Physician Id: {PhysicianId} Licence Number: {LisenceNumber} Name: {Name} Graduation Date: {GraduationDate} Speacialization: {Specialization} Availability: {Availability}";
         return text;
     }
 }

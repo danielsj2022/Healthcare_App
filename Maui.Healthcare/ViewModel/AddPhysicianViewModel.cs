@@ -1,6 +1,8 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Library.Healthcare.Models;
+using Library.Healthcare.Services;
 using System;
 
 namespace Maui.Healthcare.ViewModel;
@@ -34,8 +36,15 @@ public partial class AddPhysicianViewModel : ObservableObject
 
     [RelayCommand]
     private void Submit(){
+        int lNumber = int.Parse(LicenceNumber);
+        Physician physician= new Physician(lNumber, Name, GradDate, Specialization);
+        PhysicianService.Current.Add(physician);	//func is type safe
+        Console.Write(physician.ToString());
+
         Shell.Current.GoToAsync("//Physician");
     }
+
+    [RelayCommand]
     private void Cancel(){
         Shell.Current.GoToAsync("//PhysicianView");
     }

@@ -25,6 +25,14 @@ public class PhysicianViewViewModel : INotifyPropertyChanged
     public Physician? SelectedPhysician { get; set; }
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public void Delete(){
+        if(SelectedPhysician == null){
+            return;
+        }
+        PhysicianService.Current.Remove(SelectedPhysician.PhysicianId);
+        NotifyPropertyChanged(nameof(Physicians));
+    }
+
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

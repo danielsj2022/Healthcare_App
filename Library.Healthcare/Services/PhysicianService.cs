@@ -30,7 +30,23 @@ public class PhysicianService
     public void Add(Physician physician){
         physiciansList.Add(physician);
     }
-    public void Remove(Physician physician){
+    public Physician? Remove(int physicianId){
+        var physician = PhysicianSearchById(physicianId);
         physiciansList.Remove(physician);
+
+        return physician;
+    }
+
+    private Physician? PhysicianSearchById(int id){
+        //Console.WriteLine("Enter Physician Id: ");
+        //string? physicianIdInput = Console.ReadLine();
+            var physician = physiciansList
+                .Where(p => p != null)
+                .FirstOrDefault(p => p.PhysicianId == id);
+            if (physician == null){
+                return null;            
+            } else{ 
+                return physician; 
+            }
     }
 }

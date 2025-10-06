@@ -27,6 +27,7 @@ public partial class AddPhysicianViewModel : ObservableObject
 
     public bool IsFormValid =>
         !string.IsNullOrWhiteSpace(LicenceNumber) &&
+        int.TryParse(LicenceNumber, out _) &&
         !string.IsNullOrWhiteSpace(Name) &&
         !string.IsNullOrWhiteSpace(GradDate) &&
         !string.IsNullOrWhiteSpace(Specialization);

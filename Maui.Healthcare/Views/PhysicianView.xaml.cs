@@ -25,6 +25,7 @@ public partial class PhysicianView : ContentPage
 
     private void DeleteClicked(object sender, EventArgs e)
     {
+		(BindingContext as PhysicianViewViewModel)?.Delete();
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)

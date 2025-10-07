@@ -30,6 +30,12 @@ public class PhysicianService
     public void Add(Physician physician){
         physiciansList.Add(physician);
     }
+    public void Edit(Physician physician){
+        var index = physiciansList.IndexOf(physician);
+        physiciansList.RemoveAt(index);
+        physiciansList.Insert(index, physician) ;
+
+    }
     public Physician? Remove(int physicianId){
         var physician = PhysicianSearchById(physicianId);
         physiciansList.Remove(physician);
@@ -37,7 +43,11 @@ public class PhysicianService
         return physician;
     }
 
-    private Physician? PhysicianSearchById(int id){
+    // public Physician? Edit(int physicianId){
+    //     var physician = PhysicianSearchById(physicianId);
+    // }
+
+    public Physician? PhysicianSearchById(int id){
         //Console.WriteLine("Enter Physician Id: ");
         //string? physicianIdInput = Console.ReadLine();
             var physician = physiciansList

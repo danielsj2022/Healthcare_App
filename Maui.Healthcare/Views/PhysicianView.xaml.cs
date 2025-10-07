@@ -16,11 +16,14 @@ public partial class PhysicianView : ContentPage
 
     private void AddClicked(object sender, EventArgs e)
     {
-		Shell.Current.GoToAsync("//AddPhysician");
+		//Shell.Current.GoToAsync("//AddPhysician");
+		(BindingContext as PhysicianViewViewModel)?.Add();
+
     }
 
     private void EditClicked(object sender, EventArgs e)
     {
+		(BindingContext as PhysicianViewViewModel)?.Edit();
     }
 
     private void DeleteClicked(object sender, EventArgs e)

@@ -24,6 +24,22 @@ public class PhysicianViewViewModel : INotifyPropertyChanged
 
     public Physician? SelectedPhysician { get; set; }
     public event PropertyChangedEventHandler? PropertyChanged;
+    
+    public void Add(){
+        Shell.Current.GoToAsync($"//AddPhysician?physicianId={0}");
+
+    }
+    public void Edit(){
+        if (SelectedPhysician == null){
+            return;
+        }
+        var selectedId = SelectedPhysician.PhysicianId;
+        //var physician = SelectedPhysician;
+        Shell.Current.GoToAsync($"//AddPhysician?physicianId={selectedId}");
+        //Shell.Current.GoToAsync($"//AddPhysician?physicianId={physician}");
+
+
+    }
 
     public void Delete(){
         if(SelectedPhysician == null){

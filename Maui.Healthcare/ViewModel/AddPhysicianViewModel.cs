@@ -18,11 +18,28 @@ public partial class AddPhysicianViewModel : ObservableObject
     [ObservableProperty]
     private string specialization;
 
-    public void ResetForm(){
-        LicenceNumber = string.Empty;
-        Name = string.Empty;
-        GradDate = string.Empty;
-        Specialization = string.Empty;
+    //public int PhysicianId { get; set; }
+    [ObservableProperty]
+    public int physicianId;
+
+    public void ResetForm(int physicianIdd){
+        if(physicianIdd == 0){
+            LicenceNumber = string.Empty;
+            Name = string.Empty;
+            GradDate = string.Empty;
+            Specialization = string.Empty;
+            PhysicianId = physicianIdd;
+        }//need to load old info
+        else{
+            
+            var physician =  PhysicianService.Current.PhysicianSearchById(physicianIdd);
+            PhysicianId = physicianIdd;
+            LicenceNumber = physician.LisenceNumber.ToString();
+            Name = physician.Name;
+            GradDate = physician.GraduationDate;
+            Specialization = physician.Specialization;
+        }
+        
     }
 
     public bool IsFormValid =>
@@ -43,11 +60,21 @@ public partial class AddPhysicianViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Submit(){
+    private void Submit(){  //need to add for edit instead of just add to list
         int lNumber = int.Parse(LicenceNumber);
-        Physician physician= new Physician(lNumber, Name, GradDate, Specialization);
-        PhysicianService.Current.Add(physician);	//func is type safe
-        //Console.Write(physician.ToString());
+        var physician = PhysicianService.Current.PhysicianSearchById(PhysicianId);
+        if (physician == null){
+            Physician newPhysician= new Physician(lNumber, Name, GradDate, Specialization);
+            PhysicianService.Current.Add(newPhysician);	//func is type safe
+            //Console.Write(physician.ToString());
+        } else{
+            physician.LisenceNumber = lNumber;
+            physician.Name = Name;
+            physician.GraduationDate = GradDate;
+            physician.Specialization = Specialization;
+            PhysicianService.Current.Edit(physician);
+        }
+        
 
         Shell.Current.GoToAsync("//Physician");
     }

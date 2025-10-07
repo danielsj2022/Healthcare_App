@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Healthcare.Views.PhysicianView"
+             NavigatedTo="ContentPage_NavigatedTo"
+             Title="PhysicianView">
+    <VerticalStackLayout>
+        <Label 
+            Text="Physician View"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <VerticalStackLayout Grid.Column="0" Spacing="10">
+                <Button Text="Add Physician" Clicked="AddClicked"/>
+                <Button Text="Edit Physician" Clicked="EditClicked"/>
+                <Button Text="Delete Physician" Clicked="DeleteClicked"/>
+            </VerticalStackLayout>
+            
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ListView
+                    ItemsSource="{Binding Physicians}"
+                    SelectedItem="{Binding SelectedPhysician}"
+                >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding Display}" Grid.Column="0"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </Grid>
+
+        <Button
+            Text="Back Home"
+            Clicked="HomeClicked"
+            Margin="10"
+            VerticalOptions="End"
+            />
+    </VerticalStackLayout>
+</ContentPage>

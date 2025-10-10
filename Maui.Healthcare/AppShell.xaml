@@ -27,4 +27,9 @@
         Title="AddPhysician"
         ContentTemplate="{DataTemplate views:AddPhysicianView}"
         Route="AddPhysician"/>
+
+    <ShellContent
+        Title="AddPatient"
+        ContentTemplate="{DataTemplate views:AddPatientView}"
+        Route="AddPatient"/>
 </Shell>

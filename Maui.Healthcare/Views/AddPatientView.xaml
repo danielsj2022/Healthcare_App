@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Healthcare.Views.AddPatientView"
+             NavigatedTo="ContentPage_NavigatedTo"
+             Title="AddPatient">
+    <VerticalStackLayout>
+        <Label Text="Name"></Label>
+        <Entry Text="{Binding Name}"></Entry>
+        <Label Text="Address"></Label>
+        <Entry Text="{Binding Address}"></Entry>
+        <Label Text="Birthday --/--/----"></Label>
+        <Entry Text="{Binding Birthday}"></Entry>
+        <Label Text="Race"></Label>
+        <Entry Text="{Binding Race}"></Entry>
+        <Label Text="Gender"></Label>
+        <Entry Text="{Binding Gender}"></Entry>
+        <Label Text="Diagnosis"></Label>
+        <Entry Text="{Binding Diagnosis}"></Entry>
+        <Label Text="Prescription"></Label>
+        <Entry Text="{Binding Prescription}"></Entry>
+
+        <Button Text="Submit" 
+            Command="{Binding SubmitCommand}"
+            IsEnabled="{Binding IsFormValid}"/>
+        <Button Text="Cancel" 
+            Command="{Binding CancelCommand}"></Button>
+    </VerticalStackLayout>
+</ContentPage>

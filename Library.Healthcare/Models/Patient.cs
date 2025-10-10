@@ -26,10 +26,14 @@ public class Patient
         Prescription = prescript;
     }
 
+    public string Display{
+        get{ return ToString();}
+    }
+
     public override string ToString()
     {
-        string text = $"PatientId: {PatientId}\nName: {Name}\nAddress: {Address}\nBirthday: {Birthday}\n";
-        text += $"Race: {Race}\tGender: {Gender}\nDiagnosis: {Diagnosis}\nPrescription: {Prescription}\n";
+        string text = $"PatientId: {PatientId} Name: {Name} Address: {Address} Birthday: {Birthday} ";
+        text += $"Race: {Race} Gender: {Gender} Diagnosis: {Diagnosis} Prescription: {Prescription}";
         return text;
     }
     //workout perscript

@@ -11,7 +11,7 @@ namespace Maui.Healthcare.ViewModel;
 public class PatientViewViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
-    public PatientView? SelectedPatient { get; set; }
+    public Patient? SelectedPatient { get; set; }
     public ObservableCollection<Patient> Patients{
         get{
             return new ObservableCollection<Patient>(PatientService.Current.Patients);
@@ -23,6 +23,13 @@ public class PatientViewViewModel : INotifyPropertyChanged
 
     public void Add(){
         Shell.Current.GoToAsync($"//AddPatient?patientId={0}");
+    }
+
+    public void Edit(){
+        if(SelectedPatient == null){
+            return;
+        }
+        Shell.Current.GoToAsync($"//AddPatient?patientId={SelectedPatient?.PatientId}");
     }
 
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){

@@ -19,7 +19,7 @@ public partial class PatientView : ContentPage
 	}
 
 	private void EditClicked(object sender, EventArgs e){
-		
+		(BindingContext as PatientViewViewModel)?.Edit();
 	}
 
 	private void DeleteClicked(object sender, EventArgs e){

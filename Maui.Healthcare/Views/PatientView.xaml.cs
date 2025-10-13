@@ -1,9 +1,12 @@
+using Library.Healthcare.Models;
 using Maui.Healthcare.ViewModel;
 
 namespace Maui.Healthcare.Views;
+//[QueryProperty(nameof(SelectedPatient), "selectedPatient")]
 
 public partial class PatientView : ContentPage
 {
+	//public Patient SelectedPatient{ get; set; }
 	public PatientView()
 	{
 		InitializeComponent();
@@ -23,7 +26,7 @@ public partial class PatientView : ContentPage
 	}
 
 	private void DeleteClicked(object sender, EventArgs e){
-		
+		(BindingContext as PatientViewViewModel)?.Delete();	
 	}
 
 

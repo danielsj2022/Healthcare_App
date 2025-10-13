@@ -28,7 +28,7 @@
                 </Grid.ColumnDefinitions>
                 <ListView
                     ItemsSource="{Binding Patients}"
-                    SelectedItem="{Binding SelectedPatient}"
+                    SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"
                 >
                     <ListView.ItemTemplate>
                         <DataTemplate>

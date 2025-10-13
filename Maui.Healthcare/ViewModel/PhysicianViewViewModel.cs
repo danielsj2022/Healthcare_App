@@ -27,6 +27,8 @@ public class PhysicianViewViewModel : INotifyPropertyChanged
     
     public void Add(){
         Shell.Current.GoToAsync($"//AddPhysician?physicianId={0}");
+        SelectedPhysician = null;
+        NotifyPropertyChanged(nameof(SelectedPhysician));
 
     }
     public void Edit(){
@@ -37,7 +39,8 @@ public class PhysicianViewViewModel : INotifyPropertyChanged
         //var physician = SelectedPhysician;
         Shell.Current.GoToAsync($"//AddPhysician?physicianId={selectedId}");
         //Shell.Current.GoToAsync($"//AddPhysician?physicianId={physician}");
-
+        SelectedPhysician = null;
+        NotifyPropertyChanged(nameof(SelectedPhysician));
 
     }
 
@@ -46,6 +49,7 @@ public class PhysicianViewViewModel : INotifyPropertyChanged
             return;
         }
         PhysicianService.Current.Remove(SelectedPhysician.PhysicianId);
+        SelectedPhysician = null;
         NotifyPropertyChanged(nameof(Physicians));
     }
 

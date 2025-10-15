@@ -89,16 +89,26 @@ public partial class CreateApptViewModel : ObservableObject
 
 
     [RelayCommand]
-    public void Submit(){
+    public void Submit(){   //add functionality for edit and deselect selectedAppt
         int patientId = int.Parse(PatientId);
-        var patient = PatientService.Current.PatientSearchById(patientId);
-        if(patient != null){    //patient exist
-            var physician = PhysicianService.Current.PhysicianSearchByAvailability();
-            if(physician != null){
-                Appointment appt = new Appointment(patient, physician, DayEnum, AcceptedTime);
-                AppointmentService.Current.Add(appt);
+        
+        if(AppointmentId == 0){
+            var patient = PatientService.Current.PatientSearchById(patientId);
+            if(patient != null){    //patient exist
+                var physician = PhysicianService.Current.PhysicianSearchByAvailability();
+                if(physician != null){
+                    Appointment appt = new Appointment(patient, physician, DayEnum, AcceptedTime);
+                    AppointmentService.Current.Add(appt);
+                }
             }
+        }else{
+            Appointment existingAppt = AppointmentService.Current.AppointmentSearch(AppointmentId);
+            existingAppt.Day = DayEnum;
+            existingAppt.Time = AcceptedTime;
+            AppointmentService.Current.Edit(existingAppt);
+                
         }
+        
         //var physician = PhysicianService.Current.PhysicianSearchById(PhysicianId);
         // if (physician == null){
         //     Physician newPhysician= new Physician(lNumber, Name, GradDate, Specialization);

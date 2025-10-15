@@ -66,6 +66,7 @@ public class PatientViewViewModel : INotifyPropertyChanged
             return;
         }
         ApptVM.Edit(SelectedAppointment);
+        SelectedAppointment = null;
         NotifyPropertyChanged(nameof(SelectedAppointment));
     }
 

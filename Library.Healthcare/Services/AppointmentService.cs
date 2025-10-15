@@ -36,6 +36,12 @@ public class AppointmentService
     {
         appointmentsList.Remove(appt);
     }
+    public void Edit(Appointment appt)
+    {
+        int index = appointmentsList.IndexOf(appt);
+        appointmentsList.RemoveAt(index);
+        appointmentsList.Insert(index, appt);
+    }
     
     public Appointment? AppointmentSearch(int appointmentId)
     {

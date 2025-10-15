@@ -7,10 +7,10 @@ public class Appointment
     public int AppointmentId {get; set;}
     public Patient Patient {get; set;}
     public Physician Physician {get; set;}
-    public Weekday Day {get; set;}
+    public WeekdayEnum Day {get; set;}
     public string Time {get; set;}
 
-    public Appointment(Patient pt, Physician phy, Weekday weekday, string time){
+    public Appointment(Patient pt, Physician phy, WeekdayEnum weekday, string time){
         Random rand = new Random();
         AppointmentId = rand.Next();
         Patient = pt;
@@ -18,12 +18,18 @@ public class Appointment
         Day = weekday;
         Time = time;
     }
+
+    public string Display{
+        get{
+            return ToString();
+        }
+    }
     public override string ToString()
     {
-        return $"Appointment Id: {AppointmentId}\nPhysician Name: {Physician.Name}\n{Day} at {Time}\n";
+        return $"Appointment Id: {AppointmentId} Physician Name: {Physician.Name} {Day} at {Time}";
     }
 }
 
-public enum Weekday{
-    Monday, Tuesday, Wednesday, Thursday, Friday
-}
+// public enum Weekday{
+//     Monday, Tuesday, Wednesday, Thursday, Friday
+// }

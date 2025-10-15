@@ -19,6 +19,9 @@
                 <Button Text="Add Patient" Clicked="AddClicked"/>
                 <Button Text="Edit Patient" Clicked="EditClicked"/>
                 <Button Text="Delete Patient" Clicked="DeleteClicked"/>
+                <Button Text="Create Appointment" Clicked="CreateApptClicked"/>
+                <Button Text="Edit Appointment" Clicked="EditApptClicked"/>
+                <Button Text="Delete Appointment" Clicked="DeleteApptClicked"/>
             </VerticalStackLayout>
             
             <Grid Grid.Column="1">
@@ -27,17 +30,33 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ListView
+                    Grid.Column="0"
                     ItemsSource="{Binding Patients}"
                     SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"
                 >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label Text="{Binding Display}" Grid.Column="0"/>
+                                <Label Text="{Binding Display}"/>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
+                <ListView
+                    Grid.Column="1"
+                    ItemsSource="{Binding Appointments}"
+                    SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}"
+                >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding Display}"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
             </Grid>
 
         </Grid>

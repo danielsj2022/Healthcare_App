@@ -12,6 +12,11 @@ public class PatientViewViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public Patient? SelectedPatient { get; set; }
+    public Appointment? SelectedAppointment { get; set; } 
+    public AppointmentViewModel ApptVM {get;}
+    public PatientViewViewModel(){
+        ApptVM = new AppointmentViewModel();
+    }
     public ObservableCollection<Patient> Patients{
         get{
             return new ObservableCollection<Patient>(PatientService.Current.Patients);
@@ -19,6 +24,7 @@ public class PatientViewViewModel : INotifyPropertyChanged
     }
     public void Refresh(){
         NotifyPropertyChanged("Patients");
+        NotifyPropertyChanged("Appointments");
     }
 
     public void Add(){
@@ -46,6 +52,10 @@ public class PatientViewViewModel : INotifyPropertyChanged
         PatientService.Current.Remove(SelectedPatient);
         SelectedPatient = null;
         NotifyPropertyChanged(nameof(Patients));
+    }
+
+    public void CreateAppt(){
+        ApptVM.Create();
     }
 
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){

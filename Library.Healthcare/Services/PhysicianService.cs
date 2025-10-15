@@ -65,6 +65,10 @@ public class PhysicianService
             .Where(p => p != null)
             .FirstOrDefault(p => p.Availability == true);
         
+        if (physician != null)
+        {
+            physician.Availability = false;
+        }
         return physician;
 
         // if(physician != null){

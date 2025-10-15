@@ -24,7 +24,8 @@ public class PatientViewViewModel : INotifyPropertyChanged
     }
     public void Refresh(){
         NotifyPropertyChanged("Patients");
-        NotifyPropertyChanged("Appointments");
+        //NotifyPropertyChanged(nameof(ApptVM.Appointments));
+        ApptVM.Refresh();
     }
 
     public void Add(){

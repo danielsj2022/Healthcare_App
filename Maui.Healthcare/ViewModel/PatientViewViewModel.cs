@@ -55,8 +55,18 @@ public class PatientViewViewModel : INotifyPropertyChanged
         NotifyPropertyChanged(nameof(Patients));
     }
 
-    public void CreateAppt(){
+    public void CreateAppt()
+    {
         ApptVM.Create();
+    }
+    public void EditAppt()
+    {
+        if(SelectedAppointment == null)
+        {
+            return;
+        }
+        ApptVM.Edit(SelectedAppointment);
+        NotifyPropertyChanged(nameof(SelectedAppointment));
     }
 
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){

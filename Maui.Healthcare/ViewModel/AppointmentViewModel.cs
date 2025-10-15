@@ -11,17 +11,27 @@ public class AppointmentViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<Appointment> Appointments{
-        get{
+    public ObservableCollection<Appointment> Appointments
+    {
+        get
+        {
             return new ObservableCollection<Appointment>(AppointmentService.Current.Appointments);
         }
     }
+    
+    //public Appointment? SelectedAppointment { get; set; } 
+
     public void Refresh(){
         NotifyPropertyChanged("Appointments");
     }
 
-    public void Create(){
+    public void Create()
+    {
         Shell.Current.GoToAsync($"//CreateAppt?appointmentId={0}");
+    }
+    public void Edit(Appointment selectedAppointment)
+    {
+        Shell.Current.GoToAsync($"//CreateAppt?appointmentId={selectedAppointment.AppointmentId}");
     }
 
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){

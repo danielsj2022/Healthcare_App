@@ -32,7 +32,17 @@ public class AppointmentService
     public void Add(Appointment appt){
         appointmentsList.Add(appt);
     }
-    public void Remove(Appointment appt){
+    public void Remove(Appointment appt)
+    {
         appointmentsList.Remove(appt);
+    }
+    
+    public Appointment? AppointmentSearch(int appointmentId)
+    {
+        var appointment = appointmentsList
+            .Where(x => x != null)
+            .FirstOrDefault(x => x.AppointmentId == appointmentId);
+
+        return appointment;
     }
 }

@@ -15,6 +15,8 @@ public partial class CreateApptViewModel : ObservableObject
     private string time;
     [ObservableProperty]
     private string timeOfDay;
+    [ObservableProperty]
+    public bool isLocked = false;  //for patientId when editing
 
     private int AppointmentId { get; set; }
     private Patient Patient {get; set;}
@@ -22,17 +24,36 @@ public partial class CreateApptViewModel : ObservableObject
     private WeekdayEnum DayEnum { get; set; }
     private string AcceptedTime { get; set; }
 
-    public bool IsLocked{ get; set; } = false;  //for patientId when editing
+    
 
     public void ResetForm(int appointmentId){
         AppointmentId = appointmentId;
         if(appointmentId == 0){ //selected user is none, so add new; clear fields
+            IsLocked = false;
             PatientId = string.Empty;
             Weekday = string.Empty;
             Time = string.Empty;
             TimeOfDay = string.Empty;
         } else{
             IsLocked = true;
+            var appointment = AppointmentService.Current.AppointmentSearch(appointmentId);
+            if(appointment != null)
+            {
+                PatientId = appointment.Patient.PatientId.ToString();
+                //Weekday = appointment.Day.ToString()[0].ToString();
+                Weekday = appointment.Day.ToString();
+                if (Weekday.Equals("Thursday"))
+                {
+                    Weekday = Weekday[..2];
+                }
+                else{
+                    Weekday = Weekday[0].ToString();
+                }
+                string storedTime = appointment.Time;
+                Time = storedTime[..^2];
+                TimeOfDay = storedTime[^2..];
+                //int index = storedTime.IndexOf("m");
+            }
             //var patient = PatientService.Current.PatientSearchById(PatientId);
             // if(patient != null){
             //     Name = patient.Name;

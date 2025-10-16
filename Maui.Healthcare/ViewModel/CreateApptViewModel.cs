@@ -19,12 +19,9 @@ public partial class CreateApptViewModel : ObservableObject
     public bool isLocked = false;  //for patientId when editing
 
     private int AppointmentId { get; set; }
-    private Patient Patient {get; set;}
-    private Physician Physician {get; set;}
-    private WeekdayEnum DayEnum { get; set; }
-    private string AcceptedTime { get; set; }
 
-    
+    private WeekdayEnum DayEnum { get; set; }
+    private string AcceptedTime { get; set; }    
 
     public void ResetForm(int appointmentId){
         AppointmentId = appointmentId;
@@ -40,7 +37,6 @@ public partial class CreateApptViewModel : ObservableObject
             if(appointment != null)
             {
                 PatientId = appointment.Patient.PatientId.ToString();
-                //Weekday = appointment.Day.ToString()[0].ToString();
                 Weekday = appointment.Day.ToString();
                 if (Weekday.Equals("Thursday"))
                 {
@@ -52,7 +48,6 @@ public partial class CreateApptViewModel : ObservableObject
                 string storedTime = appointment.Time;
                 Time = storedTime[..^2];
                 TimeOfDay = storedTime[^2..];
-                //int index = storedTime.IndexOf("m");
             }
         }
     }
@@ -93,8 +88,7 @@ public partial class CreateApptViewModel : ObservableObject
             existingAppt.Day = DayEnum;
             existingAppt.Time = AcceptedTime;
             AppointmentService.Current.Edit(existingAppt);  
-        }
-        
+        }        
 
         Shell.Current.GoToAsync("//Patient");
     }
@@ -133,55 +127,43 @@ public partial class CreateApptViewModel : ObservableObject
         //bool timeLoop = false;
         int[] invalidAm = [1, 2, 3, 4, 5, 6, 7, 12];
         int[] invalidPm = [5, 6, 7, 8, 9, 10, 11];
-        //do{
-            //Console.Write("Enter desired time (number only ##:##): ");
-            //string? timeDigits = Console.ReadLine(); //11:30 1:30  10
-            //timeDigits ??= "6";
-            if(!char.IsDigit(timeDigits[0])){
+        
+        if(!char.IsDigit(timeDigits[0])){
 
+            return false;
+        }
+        //split digits by colon if exist
+        int hour;
+        if(timeDigits.Contains(':')){
+            string[] splitTime = timeDigits.Split(':');
+            if(!int.TryParse(splitTime[0], out hour)){
                 return false;
-            }
-            //split digits by colon if exist
-            int hour;
-            if(timeDigits.Contains(':')){
-                string[] splitTime = timeDigits.Split(':');
-                // hour = int.Parse(splitTime[0]);
-                if(!int.TryParse(splitTime[0], out hour)){
-                    return false;
-                } 
-            } else{
-                //hour = int.Parse(timeDigits);
-                if(!int.TryParse(timeDigits, out hour)){
-                    return false;
-                } 
-            }
+            } 
+        } else{
+            if(!int.TryParse(timeDigits, out hour)){
+                return false;
+            } 
+        }
             //check hr
-
-            //Console.Write("am or pm: ");
-            //var timeOfDay = Console.ReadLine();
-            //timeOfDay ??="mm";  //assign to invalid value
             //8pm, 9pm, 10pm, 11pm, 12am, 1am, 2am, 3am, 4am, 5am not valid
-            
-            if(timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
-                if(invalidAm.Contains(hour)){
-                    // Console.WriteLine("Invalid time");
-                    // timeLoop = true;
-                    return false;
-                }
-                else{
-                    AcceptedTime = timeDigits + timeOfDay;
-                    return true;
-                }
-            } else if(timeOfDay.Equals("pm", StringComparison.OrdinalIgnoreCase)){ //if pm
-                if(invalidPm.Contains(hour)){
-                    return false;
-                }
-                else{
-                    AcceptedTime = timeDigits + timeOfDay;
-                    return true;
-                }
-            }else{
+        if(timeOfDay.Equals("am", StringComparison.OrdinalIgnoreCase)){
+            if(invalidAm.Contains(hour)){
                 return false;
             }
+            else{
+                AcceptedTime = timeDigits + timeOfDay;
+                return true;
+            }
+        } else if(timeOfDay.Equals("pm", StringComparison.OrdinalIgnoreCase)){ //if pm
+            if(invalidPm.Contains(hour)){
+                return false;
+            }
+            else{
+                AcceptedTime = timeDigits + timeOfDay;
+                return true;
+            }
+        }else{
+            return false;
+        }
     }
 }

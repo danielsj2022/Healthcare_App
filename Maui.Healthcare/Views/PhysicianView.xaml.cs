@@ -16,7 +16,6 @@ public partial class PhysicianView : ContentPage
 
     private void AddClicked(object sender, EventArgs e)
     {
-		//Shell.Current.GoToAsync("//AddPhysician");
 		(BindingContext as PhysicianViewViewModel)?.Add();
 
     }

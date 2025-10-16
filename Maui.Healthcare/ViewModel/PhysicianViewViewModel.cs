@@ -36,9 +36,7 @@ public class PhysicianViewViewModel : INotifyPropertyChanged
             return;
         }
         var selectedId = SelectedPhysician.PhysicianId;
-        //var physician = SelectedPhysician;
         Shell.Current.GoToAsync($"//AddPhysician?physicianId={selectedId}");
-        //Shell.Current.GoToAsync($"//AddPhysician?physicianId={physician}");
         SelectedPhysician = null;
         NotifyPropertyChanged(nameof(SelectedPhysician));
 

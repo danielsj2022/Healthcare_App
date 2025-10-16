@@ -24,7 +24,6 @@ public class PatientViewViewModel : INotifyPropertyChanged
     }
     public void Refresh(){
         NotifyPropertyChanged("Patients");
-        //NotifyPropertyChanged(nameof(ApptVM.Appointments));
         ApptVM.Refresh();
     }
 
@@ -39,7 +38,6 @@ public class PatientViewViewModel : INotifyPropertyChanged
             return;
         }
         var patientId = SelectedPatient.PatientId;
-        //SelectedPatient = null;
         Shell.Current.GoToAsync($"//AddPatient?patientId={patientId}");
         SelectedPatient = null;
         NotifyPropertyChanged(nameof(SelectedPatient));

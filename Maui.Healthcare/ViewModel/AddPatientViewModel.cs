@@ -91,8 +91,6 @@ public partial class AddPatientViewModel : ObservableObject
 
         //Shell.Current.GoToAsync($"//Patient?selectedPatient={null}");
                 Shell.Current.GoToAsync("//Patient");
-
-
     }
     [RelayCommand]
     private void Cancel(){

@@ -19,8 +19,6 @@ public class AppointmentViewModel : INotifyPropertyChanged
         }
     }
     
-    //public Appointment? SelectedAppointment { get; set; } 
-
     public void Refresh(){
         NotifyPropertyChanged("Appointments");
     }

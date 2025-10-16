@@ -54,16 +54,6 @@ public partial class CreateApptViewModel : ObservableObject
                 TimeOfDay = storedTime[^2..];
                 //int index = storedTime.IndexOf("m");
             }
-            //var patient = PatientService.Current.PatientSearchById(PatientId);
-            // if(patient != null){
-            //     Name = patient.Name;
-            //     Address = patient.Address;
-            //     Birthday = patient.Birthday;
-            //     Race = patient.Race;
-            //     Gender = patient.Gender;
-            //     Diagnosis = patient.Diagnosis;
-            //     Prescription = patient.Prescription;
-            // }
         }
     }
 
@@ -83,10 +73,7 @@ public partial class CreateApptViewModel : ObservableObject
                     OnPropertyChanged(nameof(IsFormValid));
                 }
         };
-
     }
-
-
 
     [RelayCommand]
     public void Submit(){   //add functionality for edit and deselect selectedAppt
@@ -105,22 +92,8 @@ public partial class CreateApptViewModel : ObservableObject
             Appointment existingAppt = AppointmentService.Current.AppointmentSearch(AppointmentId);
             existingAppt.Day = DayEnum;
             existingAppt.Time = AcceptedTime;
-            AppointmentService.Current.Edit(existingAppt);
-                
+            AppointmentService.Current.Edit(existingAppt);  
         }
-        
-        //var physician = PhysicianService.Current.PhysicianSearchById(PhysicianId);
-        // if (physician == null){
-        //     Physician newPhysician= new Physician(lNumber, Name, GradDate, Specialization);
-        //     PhysicianService.Current.Add(newPhysician);	//func is type safe
-        //     //Console.Write(physician.ToString());
-        // } else{
-        //     physician.LisenceNumber = lNumber;
-        //     physician.Name = Name;
-        //     physician.GraduationDate = GradDate;
-        //     physician.Specialization = Specialization;
-        //     PhysicianService.Current.Edit(physician);
-        // }
         
 
         Shell.Current.GoToAsync("//Patient");

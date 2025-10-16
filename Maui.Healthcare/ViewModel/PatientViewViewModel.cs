@@ -61,13 +61,24 @@ public class PatientViewViewModel : INotifyPropertyChanged
     }
     public void EditAppt()
     {
-        if(SelectedAppointment == null)
+        if (SelectedAppointment == null)
         {
             return;
         }
         ApptVM.Edit(SelectedAppointment);
         SelectedAppointment = null;
         NotifyPropertyChanged(nameof(SelectedAppointment));
+    }
+    public void DeleteAppt()
+    {
+        if (SelectedAppointment == null)
+        {
+            return;
+        }
+        SelectedAppointment.Physician.Availability = true;
+        ApptVM.Delete(SelectedAppointment);
+        SelectedAppointment = null;
+        ApptVM.Refresh();
     }
 
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){

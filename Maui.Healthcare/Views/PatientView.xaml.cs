@@ -46,6 +46,7 @@ public partial class PatientView : ContentPage
     }
 
     private void DeleteApptClicked(object sender, EventArgs e)
-    {
+	{
+        (BindingContext as PatientViewViewModel)?.DeleteAppt();
     }
 }

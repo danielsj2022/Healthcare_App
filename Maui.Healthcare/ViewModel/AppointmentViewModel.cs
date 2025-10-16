@@ -33,6 +33,10 @@ public class AppointmentViewModel : INotifyPropertyChanged
     {
         Shell.Current.GoToAsync($"//CreateAppt?appointmentId={selectedAppointment.AppointmentId}");
     }
+    public void Delete(Appointment selectedAppointment)
+    {
+        AppointmentService.Current.Remove(selectedAppointment);
+    }
 
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

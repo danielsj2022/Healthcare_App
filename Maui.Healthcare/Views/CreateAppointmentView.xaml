@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Healthcare.Views.CreateAppointmentView"
+             NavigatedTo="ContentPage_NavigatedTo"
+             Title="CreateAppointmentView">
+    <VerticalStackLayout>
+        <Label Text="PatientId"></Label>
+        <Entry Text="{Binding PatientId}"
+            IsReadOnly="{Binding IsLocked}"></Entry>
+        <Label Text="Enter Weekday (M, T, W, TH, F)"></Label>
+        <Entry Text="{Binding Weekday}"></Entry>
+        <Label Text="Time"></Label>
+        <Entry Text="{Binding Time}"></Entry>
+        <Label Text="AM/PM"></Label>
+        <Entry Text="{Binding TimeOfDay}"></Entry>
+
+        <Button Text="Submit" 
+            Command="{Binding SubmitCommand}"
+            IsEnabled="{Binding IsFormValid}"/>
+        <Button Text="Cancel"
+            Command="{Binding CancelCommand}"></Button>
+    </VerticalStackLayout>
+</ContentPage>

@@ -43,9 +43,9 @@ public class PatientService
     }
 
     public Patient? PatientSearchById(int patientId){
-        
+
         //string? patientIdInput = Console.ReadLine();
-            
+
         var patient = patientsList
             .Where(p => p != null)
             .FirstOrDefault(p => p?.PatientId == patientId);

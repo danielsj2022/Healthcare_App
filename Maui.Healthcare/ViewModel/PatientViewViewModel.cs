@@ -12,6 +12,11 @@ public class PatientViewViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public Patient? SelectedPatient { get; set; }
+    public Appointment? SelectedAppointment { get; set; } 
+    public AppointmentViewModel ApptVM {get;}
+    public PatientViewViewModel(){
+        ApptVM = new AppointmentViewModel();
+    }
     public ObservableCollection<Patient> Patients{
         get{
             return new ObservableCollection<Patient>(PatientService.Current.Patients);
@@ -19,6 +24,7 @@ public class PatientViewViewModel : INotifyPropertyChanged
     }
     public void Refresh(){
         NotifyPropertyChanged("Patients");
+        ApptVM.Refresh();
     }
 
     public void Add(){
@@ -32,7 +38,6 @@ public class PatientViewViewModel : INotifyPropertyChanged
             return;
         }
         var patientId = SelectedPatient.PatientId;
-        //SelectedPatient = null;
         Shell.Current.GoToAsync($"//AddPatient?patientId={patientId}");
         SelectedPatient = null;
         NotifyPropertyChanged(nameof(SelectedPatient));
@@ -46,6 +51,32 @@ public class PatientViewViewModel : INotifyPropertyChanged
         PatientService.Current.Remove(SelectedPatient);
         SelectedPatient = null;
         NotifyPropertyChanged(nameof(Patients));
+    }
+
+    public void CreateAppt()
+    {
+        ApptVM.Create();
+    }
+    public void EditAppt()
+    {
+        if (SelectedAppointment == null)
+        {
+            return;
+        }
+        ApptVM.Edit(SelectedAppointment);
+        SelectedAppointment = null;
+        NotifyPropertyChanged(nameof(SelectedAppointment));
+    }
+    public void DeleteAppt()
+    {
+        if (SelectedAppointment == null)
+        {
+            return;
+        }
+        SelectedAppointment.Physician.Availability = true;
+        ApptVM.Delete(SelectedAppointment);
+        SelectedAppointment = null;
+        ApptVM.Refresh();
     }
 
     private void NotifyPropertyChanged([CallerMemberName] string propertyName = ""){

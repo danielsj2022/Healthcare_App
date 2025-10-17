@@ -34,4 +34,19 @@ public partial class PatientView : ContentPage
     {
 		(BindingContext as PatientViewViewModel)?.Refresh();
     }
+
+    private void CreateApptClicked(object sender, EventArgs e)
+    {
+		(BindingContext as PatientViewViewModel)?.CreateAppt();
+    }
+
+    private void EditApptClicked(object sender, EventArgs e)
+	{
+        (BindingContext as PatientViewViewModel)?.EditAppt();
+    }
+
+    private void DeleteApptClicked(object sender, EventArgs e)
+	{
+        (BindingContext as PatientViewViewModel)?.DeleteAppt();
+    }
 }

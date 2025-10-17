@@ -59,4 +59,24 @@ public class PhysicianService
                 return physician; 
             }
     }
+
+    public Physician? PhysicianSearchByAvailability(){
+        var physician = physiciansList //find first avail phy
+            .Where(p => p != null)
+            .FirstOrDefault(p => p.Availability == true);
+        
+        if (physician != null)
+        {
+            physician.Availability = false;
+        }
+        return physician;
+
+        // if(physician != null){
+        //     physician.Availability = false; //set availability
+        //     return physician;
+        // } else{
+        //     Console.WriteLine("No physicians available");
+        //     return null;
+        // }
+    }
 }

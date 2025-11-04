@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Healthcare", "Api.Healthcare\Api.Healthcare.csproj", "{7FF769B2-1F2A-4956-84CF-D56C00AB99D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Healthcare", "..\Library.Healthcare\Library.Healthcare.csproj", "{C6FF9205-C369-425B-8AB7-E1C6859174B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{7FF769B2-1F2A-4956-84CF-D56C00AB99D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FF769B2-1F2A-4956-84CF-D56C00AB99D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FF769B2-1F2A-4956-84CF-D56C00AB99D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FF9205-C369-425B-8AB7-E1C6859174B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FF9205-C369-425B-8AB7-E1C6859174B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FF9205-C369-425B-8AB7-E1C6859174B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FF9205-C369-425B-8AB7-E1C6859174B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

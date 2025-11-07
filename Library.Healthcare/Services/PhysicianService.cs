@@ -1,5 +1,9 @@
 using System;
+using System.Text.Json.Serialization;
+using Library.Healthcare.Utilities;
 using Library.Healthcare.Models;
+using Newtonsoft.Json;
+
 
 namespace Library.Healthcare.Services;
 
@@ -8,6 +12,12 @@ public class PhysicianService
     private List<Physician> physiciansList ;
     private PhysicianService(){
         physiciansList = new List<Physician>();
+        var physicianResponse = new WebRequestHandler().Get("/Physician").Result;
+
+        if (physicianResponse != null)
+        {
+            physiciansList = JsonConvert.DeserializeObject<List<Physician>>(physicianResponse);
+        }
     }
 
     private static PhysicianService? instance;

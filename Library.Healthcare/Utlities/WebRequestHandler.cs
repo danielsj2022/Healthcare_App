@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
-namespace Library.eCommerce.Utilities
+namespace Library.Healthcare.Utilities
 {
     public class WebRequestHandler
     {

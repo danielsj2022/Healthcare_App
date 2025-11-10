@@ -3,7 +3,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Library.Healthcare.Models;
 using Library.Healthcare.Services;
+using Library.Healthcare.DTO;
 using System;
+using System.Diagnostics;
 
 namespace Maui.Healthcare.ViewModel;
 
@@ -32,12 +34,12 @@ public partial class AddPhysicianViewModel : ObservableObject
         }//need to load old info
         else{
             
-            var physician =  PhysicianService.Current.PhysicianSearchById(physicianIdd);
+            var existingPhysician =  PhysicianService.Current.PhysicianSearchById(physicianIdd);
             PhysicianId = physicianIdd;
-            LicenceNumber = physician.LisenceNumber.ToString();
-            Name = physician.Name;
-            GradDate = physician.GraduationDate;
-            Specialization = physician.Specialization;
+            LicenceNumber = existingPhysician.LisenceNumber.ToString();
+            Name = existingPhysician.Name;
+            GradDate = existingPhysician.GraduationDate;
+            Specialization = existingPhysician.Specialization;
         }
         
     }
@@ -60,21 +62,35 @@ public partial class AddPhysicianViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Submit(){  //need to add for edit instead of just add to list
+    private async Task<bool> Submit(){  //need to add for edit instead of just add to list
         int lNumber = int.Parse(LicenceNumber);
-        var physician = PhysicianService.Current.PhysicianSearchById(PhysicianId);
-        if (physician == null){
-            Physician newPhysician= new Physician(lNumber, Name, GradDate, Specialization);
-            PhysicianService.Current.Add(newPhysician);	//func is type safe
-        } else{
-            physician.LisenceNumber = lNumber;
-            physician.Name = Name;
-            physician.GraduationDate = GradDate;
-            physician.Specialization = Specialization;
-            PhysicianService.Current.Edit(physician);
+        var physicianDTO = PhysicianService.Current.PhysicianSearchById(PhysicianId);
+        try
+        {
+            if (physicianDTO == null)
+            {
+                Physician newPhysician = new Physician(lNumber, Name, GradDate, Specialization);
+                //need to go from obj -> dto; then add
+                PhysicianDTO newPhysicianDTO = new PhysicianDTO(newPhysician);
+                await PhysicianService.Current.Add(newPhysicianDTO);	//func is type safe
+            }
+            else
+            {
+                physicianDTO.LisenceNumber = lNumber;
+                physicianDTO.Name = Name;
+                physicianDTO.GraduationDate = GradDate;
+                physicianDTO.Specialization = Specialization;
+                PhysicianService.Current.Edit(physicianDTO);
+            }
+            
+        }catch(Exception e)
+        {
+            Debug.WriteLine(e.ToString());
+            await Shell.Current.DisplayAlert("Error", e.Message, "OK");
+            return false;
         }
-        
-        Shell.Current.GoToAsync("//Physician");
+        await Shell.Current.GoToAsync("//Physician");
+        return true;
     }
 
     [RelayCommand]

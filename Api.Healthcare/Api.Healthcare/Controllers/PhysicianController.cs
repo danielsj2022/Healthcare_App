@@ -1,5 +1,6 @@
 using System;
 using Api.Healthcare.Enterprise;
+using Library.Healthcare.DTO;
 using Library.Healthcare.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,9 +29,13 @@ public class PhysicianController : ControllerBase
     }
 
     [HttpPost]
-    public Physician? AddPhysician(int lisenseNum, string name, string gradDate, string speacialization)
+    public Physician? AddPhysician([FromBody] PhysicianDTO physicianDTO)
     {
-        return new PhysicianEC().AddPhysician(lisenseNum, name, gradDate, speacialization);  
+        // var newPhysician = PhysicianEC().AddPhysician(
+        //     physicianDTO.lisenceNumber, physicianDTO.name, physicianDTO.graduationDate, physicianDTO.specialization
+        // );
+        // return newPhysician; 
+        return new PhysicianEC().AddPhysician(physicianDTO);
     }
 
 }

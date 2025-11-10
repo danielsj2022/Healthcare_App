@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Library.Healthcare.Models;
 using Library.Healthcare.Services;
+using Library.Healthcare.DTO;
 using System.Runtime.CompilerServices; 
 using System.Linq;
 using System.Threading.Tasks; 
@@ -13,16 +14,16 @@ namespace Maui.Healthcare.ViewModel;
 public class PhysicianViewViewModel : INotifyPropertyChanged
 {
 
-    public ObservableCollection<Physician> Physicians{
+    public ObservableCollection<PhysicianDTO> Physicians{
         get{
-            return new ObservableCollection<Physician>(PhysicianService.Current.Physicians);
+            return new ObservableCollection<PhysicianDTO>(PhysicianService.Current.Physicians);
         }
     }
     public void Refresh(){
         NotifyPropertyChanged("Physicians");
     }
 
-    public Physician? SelectedPhysician { get; set; }
+    public PhysicianDTO? SelectedPhysician { get; set; }
     public event PropertyChangedEventHandler? PropertyChanged;
     
     public void Add(){

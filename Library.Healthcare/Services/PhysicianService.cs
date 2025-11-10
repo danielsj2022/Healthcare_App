@@ -2,6 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 using Library.Healthcare.Utilities;
 using Library.Healthcare.Models;
+using Library.Healthcare.DTO;
 using Newtonsoft.Json;
 
 
@@ -9,14 +10,14 @@ namespace Library.Healthcare.Services;
 
 public class PhysicianService
 {
-    private List<Physician> physiciansList ;
+    private List<PhysicianDTO> physiciansList =new List<PhysicianDTO>() ;
     private PhysicianService(){
-        physiciansList = new List<Physician>();
+        //physiciansList = new List<Physician>();
         var physicianResponse = new WebRequestHandler().Get("/Physician").Result;
 
         if (physicianResponse != null)
         {
-            physiciansList = JsonConvert.DeserializeObject<List<Physician>>(physicianResponse);
+            physiciansList = JsonConvert.DeserializeObject<List<PhysicianDTO>>(physicianResponse);
         }
     }
 
@@ -33,53 +34,61 @@ public class PhysicianService
         }
     }
 
-    public List<Physician> Physicians{
+    public List<PhysicianDTO> Physicians{
         get{ return physiciansList; }
     }
 
-    public void Add(Physician physician){
-        physiciansList.Add(physician);
+    public async Task<PhysicianDTO> Add(PhysicianDTO physicianDTO){
+        if (physicianDTO == null)
+        {
+            return null;
+        }
+        var physicianPayload = await new WebRequestHandler().Post("/Physician", physicianDTO);
+        var physicianFromServer = JsonConvert.DeserializeObject<PhysicianDTO>(physicianPayload);
+        physiciansList.Add(physicianFromServer);
+
+        return physicianDTO;
     }
-    public void Edit(Physician physician){
-        var index = physiciansList.IndexOf(physician);
+    public void Edit(PhysicianDTO physicianDTO){
+        var index = physiciansList.IndexOf(physicianDTO);
         physiciansList.RemoveAt(index);
-        physiciansList.Insert(index, physician) ;
+        physiciansList.Insert(index, physicianDTO) ;
 
     }
-    public Physician? Remove(int physicianId){
-        var physician = PhysicianSearchById(physicianId);
-        physiciansList.Remove(physician);
+    public PhysicianDTO? Remove(int physicianId){
+        var physicianDTO = PhysicianSearchById(physicianId);
+        physiciansList.Remove(physicianDTO);
 
-        return physician;
+        return physicianDTO;
     }
 
     // public Physician? Edit(int physicianId){
     //     var physician = PhysicianSearchById(physicianId);
     // }
 
-    public Physician? PhysicianSearchById(int id){
+    public PhysicianDTO? PhysicianSearchById(int id){
         //Console.WriteLine("Enter Physician Id: ");
         //string? physicianIdInput = Console.ReadLine();
-            var physician = physiciansList
+            var physicianDTO = physiciansList
                 .Where(p => p != null)
                 .FirstOrDefault(p => p.PhysicianId == id);
-            if (physician == null){
+            if (physicianDTO == null){
                 return null;            
             } else{ 
-                return physician; 
+                return physicianDTO; 
             }
     }
 
-    public Physician? PhysicianSearchByAvailability(){
-        var physician = physiciansList //find first avail phy
+    public PhysicianDTO? PhysicianSearchByAvailability(){
+        var physicianDTO = physiciansList //find first avail phy
             .Where(p => p != null)
             .FirstOrDefault(p => p.Availability == true);
         
-        if (physician != null)
+        if (physicianDTO != null)
         {
-            physician.Availability = false;
+            physicianDTO.Availability = false;
         }
-        return physician;
+        return physicianDTO;
 
         // if(physician != null){
         //     physician.Availability = false; //set availability

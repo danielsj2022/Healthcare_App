@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Library.Healthcare.Models;
 using Library.Healthcare.Services;
+using Library.Healthcare.DTO;
 namespace Maui.Healthcare.ViewModel;
 
 public partial class CreateApptViewModel : ObservableObject 
@@ -77,9 +78,9 @@ public partial class CreateApptViewModel : ObservableObject
         if(AppointmentId == 0){
             var patient = PatientService.Current.PatientSearchById(patientId);
             if(patient != null){    //patient exist
-                var physician = PhysicianService.Current.PhysicianSearchByAvailability();
-                if(physician != null){
-                    Appointment appt = new Appointment(patient, physician, DayEnum, AcceptedTime);
+                var physicianDTO = PhysicianService.Current.PhysicianSearchByAvailability();
+                if(physicianDTO != null){
+                    Appointment appt = new Appointment(patient, physicianDTO, DayEnum, AcceptedTime);
                     AppointmentService.Current.Add(appt);
                 }
             }

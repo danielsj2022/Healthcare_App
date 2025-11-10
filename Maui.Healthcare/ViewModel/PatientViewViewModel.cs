@@ -73,7 +73,7 @@ public class PatientViewViewModel : INotifyPropertyChanged
         {
             return;
         }
-        SelectedAppointment.Physician.Availability = true;
+        SelectedAppointment.PhysicianDTO.Availability = true;
         ApptVM.Delete(SelectedAppointment);
         SelectedAppointment = null;
         ApptVM.Refresh();

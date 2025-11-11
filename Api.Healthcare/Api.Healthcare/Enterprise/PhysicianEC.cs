@@ -7,31 +7,48 @@ namespace Api.Healthcare.Enterprise;
 
 public class PhysicianEC
 {
-    public IEnumerable<Physician> GetPhysicians()
+    public IEnumerable<PhysicianDTO> GetPhysicians()
     {
         return FakeDatabase.Physicians
+            .Select(x => new PhysicianDTO(x))
             .OrderByDescending(x => x.PhysicianId)
             .Take(100);
     }
 
-    public Physician? GetPhysiciansById(int physicianId)
+    public PhysicianDTO? GetPhysiciansById(int physicianId)
     {
-        return FakeDatabase.Physicians.FirstOrDefault(x => x.PhysicianId == physicianId);
+        var physician = FakeDatabase.Physicians.FirstOrDefault(x => x.PhysicianId == physicianId);
+        if (physician != null)
+        {
+            return new PhysicianDTO(physician);
+        }
+        else
+        {
+            return null;
+        }
+        
     }
 
-    // public Physician? AddPhysician(int lisenseNum, string name, string gradDate, string speacialization){
-    //     Physician physician = new Physician(lisenseNum, name, gradDate, speacialization);
-    //     FakeDatabase.Physicians.Add(physician);
-    //     return physician;
-    // }
-    public Physician? AddPhysician(PhysicianDTO physicianDTO)
+    public PhysicianDTO? AddPhysician(PhysicianDTO physicianDTO)
     {
         //var lNumber = physicianDTO.LisenceNumber;
         Physician physician = new Physician(physicianDTO.LisenceNumber, physicianDTO.Name, physicianDTO.GraduationDate, physicianDTO.Specialization);
         FakeDatabase.Physicians.Add(physician);
-        return physician;
+        return new PhysicianDTO(physician);
     }
-    // var newPhysician = PhysicianEC().AddPhysician(
-    //     //     physicianDTO.lisenceNumber, physicianDTO.name, physicianDTO.graduationDate, physicianDTO.specialization
-    //     // );
+    
+    public PhysicianDTO? DeletePhysician(int physicianId)
+    {
+        var physician = FakeDatabase.Physicians.FirstOrDefault(x => x.PhysicianId == physicianId);
+        if(physician != null)
+        {
+            FakeDatabase.Physicians.Remove(physician);
+            return new PhysicianDTO(physician);
+        }
+        else
+        {
+            return null;
+        }
+
+    }
 }

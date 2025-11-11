@@ -17,25 +17,27 @@ public class PhysicianController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Physician> Get()
+    public IEnumerable<PhysicianDTO> Get()
     {
         return new PhysicianEC().GetPhysicians();
     }
 
     [HttpGet("{physicianId}")]
-    public Physician? GetPhysicianById(int physicianId)
+    public PhysicianDTO? GetPhysicianById(int physicianId)
     {
         return new PhysicianEC().GetPhysiciansById(physicianId);
     }
 
     [HttpPost]
-    public Physician? AddPhysician([FromBody] PhysicianDTO physicianDTO)
+    public PhysicianDTO? AddPhysician([FromBody] PhysicianDTO physicianDTO)
     {
-        // var newPhysician = PhysicianEC().AddPhysician(
-        //     physicianDTO.lisenceNumber, physicianDTO.name, physicianDTO.graduationDate, physicianDTO.specialization
-        // );
-        // return newPhysician; 
         return new PhysicianEC().AddPhysician(physicianDTO);
     }
+
+    [HttpDelete("{id}")]
+    public PhysicianDTO? DeletePhysician(int id)
+    {
+        return new PhysicianEC().DeletePhysician(id);
+    } 
 
 }

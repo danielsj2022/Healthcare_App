@@ -56,6 +56,8 @@ public class PhysicianService
 
     }
     public PhysicianDTO? Remove(int physicianId){
+        var response = new WebRequestHandler().Delete($"/Physician/{physicianId}").Result;
+
         var physicianDTO = PhysicianSearchById(physicianId);
         physiciansList.Remove(physicianDTO);
 

@@ -36,6 +36,25 @@ public class PhysicianEC
         FakeDatabase.Physicians.Add(physician);
         return new PhysicianDTO(physician);
     }
+
+    public PhysicianDTO? EditPhysician(PhysicianDTO physicianDTO)
+    {
+        Physician updatedPhysician = new Physician(physicianDTO);
+        var oldPhysician = FakeDatabase.Physicians.FirstOrDefault(x => x.PhysicianId == physicianDTO.PhysicianId);
+        
+        if (oldPhysician != null)
+        {
+            var index = FakeDatabase.Physicians.IndexOf(oldPhysician);
+            FakeDatabase.Physicians.Remove(oldPhysician);
+            FakeDatabase.Physicians.Insert(index, updatedPhysician);
+            return physicianDTO;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
     
     public PhysicianDTO? DeletePhysician(int physicianId)
     {

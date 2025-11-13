@@ -34,6 +34,12 @@ public class PhysicianController : ControllerBase
         return new PhysicianEC().AddPhysician(physicianDTO);
     }
 
+    [HttpPost("Update")]
+    public PhysicianDTO? EditPhysician([FromBody] PhysicianDTO physicianDTO)
+    {
+        return new PhysicianEC().EditPhysician(physicianDTO);
+    }
+
     [HttpDelete("{id}")]
     public PhysicianDTO? DeletePhysician(int id)
     {

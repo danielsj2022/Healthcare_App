@@ -49,10 +49,18 @@ public class PhysicianService
 
         return physicianDTO;
     }
-    public void Edit(PhysicianDTO physicianDTO){
-        var index = physiciansList.IndexOf(physicianDTO);
+    public async Task<PhysicianDTO> Edit(PhysicianDTO physicianDTO){
+
+        var physicianPayload = await new WebRequestHandler().Post("/Physician/Update", physicianDTO);
+        var physicianFromServer = JsonConvert.DeserializeObject<PhysicianDTO>(physicianPayload);
+
+        //var index = physiciansList.IndexOf(physicianDTO);
+        var index = physiciansList.IndexOf(physicianFromServer);
         physiciansList.RemoveAt(index);
-        physiciansList.Insert(index, physicianDTO) ;
+        //physiciansList.Insert(index, physicianDTO) ;
+        physiciansList.Insert(index, physicianFromServer);
+
+        return physicianDTO;
 
     }
     public PhysicianDTO? Remove(int physicianId){

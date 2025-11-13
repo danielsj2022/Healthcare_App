@@ -1,4 +1,5 @@
 using System;
+using Library.Healthcare.DTO;
 
 namespace Library.Healthcare.Models;
 
@@ -11,7 +12,8 @@ public class Physician
     public string Specialization {get; set;}
     public bool Availability {get; set;}
 
-    public Physician(int licenseNum, string name,string  gradDate, string specialization){
+    public Physician(int licenseNum, string name, string gradDate, string specialization)
+    {
         var rand = new Random();
         PhysicianId = rand.Next();
         LisenceNumber = licenseNum;
@@ -19,6 +21,16 @@ public class Physician
         GraduationDate = gradDate;
         Specialization = specialization;
         Availability = true;
+    }
+    
+    public Physician(PhysicianDTO physicianDTO)
+    {
+        PhysicianId = physicianDTO.PhysicianId;
+        LisenceNumber = physicianDTO.LisenceNumber;
+        Name = physicianDTO.Name;
+        GraduationDate = physicianDTO.GraduationDate;
+        Specialization = physicianDTO.Specialization;
+        Availability = physicianDTO.Availability;
     }
 
     public string Display{

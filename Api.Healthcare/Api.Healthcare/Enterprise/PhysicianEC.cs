@@ -81,7 +81,7 @@ public class PhysicianEC
                 || (p?.Name.ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
                 || (p?.GraduationDate.ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
                 || (p?.Specialization.ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
-                || (p?.Availability.ToString().ToUpper().Contains(query.ToUpper() ?? String.Empty) ?? false)
+                || (p?.Availability.ToString().ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
         ).Select(p => new PhysicianDTO(p));
     }
 }

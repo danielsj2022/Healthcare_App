@@ -4,12 +4,17 @@
              x:Class="Maui.Healthcare.Views.PhysicianView"
              NavigatedTo="ContentPage_NavigatedTo"
              Title="PhysicianView">
-    <VerticalStackLayout>
+    <VerticalStackLayout HorizontalOptions="Fill" Padding="10">
         <Label 
             Text="Physician View"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
+        
+        <Grid ColumnDefinitions="3*,Auto">
+            <Entry Grid.Column="0" Text="{Binding Query}" Placeholder="Search..."/>
+            <Button Grid.Column="1" Text="Search" Command="{Binding SearchCommand}"/>
+        </Grid>
 
         <Grid>
             <Grid.ColumnDefinitions>

@@ -2,6 +2,7 @@ using System;
 using Api.Healthcare.Database;
 using Library.Healthcare.Models;
 using Library.Healthcare.DTO;
+using Library.Healthcare.Data;
 
 namespace Api.Healthcare.Enterprise;
 
@@ -69,5 +70,18 @@ public class PhysicianEC
             return null;
         }
 
+    }
+
+    public IEnumerable<PhysicianDTO?> SearchPhysician(string query)
+    {
+        return FakeDatabase.Physicians.Where(
+            //b?.Title?.ToUpper()?.Contains(query?.ToUpper() ?? string.Empty) ?? false
+            p => (p?.PhysicianId.ToString().ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
+                || (p?.LisenceNumber.ToString().ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
+                || (p?.Name.ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
+                || (p?.GraduationDate.ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
+                || (p?.Specialization.ToUpper().Contains(query.ToUpper() ?? string.Empty) ?? false)
+                || (p?.Availability.ToString().ToUpper().Contains(query.ToUpper() ?? String.Empty) ?? false)
+        ).Select(p => new PhysicianDTO(p));
     }
 }

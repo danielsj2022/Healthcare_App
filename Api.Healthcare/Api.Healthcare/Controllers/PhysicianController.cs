@@ -1,5 +1,6 @@
 using System;
 using Api.Healthcare.Enterprise;
+using Library.Healthcare.Data;
 using Library.Healthcare.DTO;
 using Library.Healthcare.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,12 @@ public class PhysicianController : ControllerBase
     public PhysicianDTO? DeletePhysician(int id)
     {
         return new PhysicianEC().DeletePhysician(id);
-    } 
+    }
+
+    [HttpPost("Search")] 
+    public IEnumerable<PhysicianDTO?> SearchPhysician([FromBody] QueryRequest query)
+    {
+        return new PhysicianEC().SearchPhysician(query.Content);
+    }
 
 }

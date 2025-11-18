@@ -1,38 +1,41 @@
 using System;
-using Library.Healthcare.DTO;
+using Library.Healthcare.Models;
+namespace Library.Healthcare.DTO;
 
-namespace Library.Healthcare.Models;
-
-public class Physician
+public class PhysicianDTO
 {
     public int PhysicianId {get; set;}
     public int LisenceNumber {get; set;}
     public string Name {get; set;}
     public string GraduationDate {get; set;}
     public string Specialization {get; set;}
-    public bool Availability {get; set;}
+    public bool Availability { get; set; }
 
-    public Physician(int licenseNum, string name, string gradDate, string specialization)
+    public PhysicianDTO(int licenseNum, string name, string gradDate, string specialization)
     {
-        var rand = new Random();
-        PhysicianId = rand.Next();
+        //var rand = new Random();
+        //PhysicianId = rand.Next();
         LisenceNumber = licenseNum;
         Name = name;
         GraduationDate = gradDate;
         Specialization = specialization;
         Availability = true;
     }
-    
-    public Physician(PhysicianDTO physicianDTO)
+    public PhysicianDTO()
     {
-        PhysicianId = physicianDTO.PhysicianId;
-        LisenceNumber = physicianDTO.LisenceNumber;
-        Name = physicianDTO.Name;
-        GraduationDate = physicianDTO.GraduationDate;
-        Specialization = physicianDTO.Specialization;
-        Availability = physicianDTO.Availability;
+
     }
 
+    public PhysicianDTO(Physician physician)
+    {
+        PhysicianId = physician.PhysicianId;
+        LisenceNumber = physician.LisenceNumber;
+        Name = physician.Name;
+        GraduationDate = physician.GraduationDate;
+        Specialization = physician.Specialization;
+        Availability = physician.Availability;
+    }
+    
     public string Display{
         get { return ToString(); }
     }

@@ -1,4 +1,5 @@
 using System;
+using Library.Healthcare.DTO;
 
 namespace Library.Healthcare.Models;
 
@@ -6,15 +7,15 @@ public class Appointment
 {
     public int AppointmentId {get; set;}
     public Patient Patient {get; set;}
-    public Physician Physician {get; set;}
+    public PhysicianDTO PhysicianDTO {get; set;}
     public WeekdayEnum Day {get; set;}
     public string Time {get; set;}
 
-    public Appointment(Patient pt, Physician phy, WeekdayEnum weekday, string time){
+    public Appointment(Patient pt, PhysicianDTO phy, WeekdayEnum weekday, string time){
         Random rand = new Random();
         AppointmentId = rand.Next();
         Patient = pt;
-        Physician = phy;
+        PhysicianDTO = phy;
         Day = weekday;
         Time = time;
     }
@@ -26,7 +27,7 @@ public class Appointment
     }
     public override string ToString()
     {
-        return $"Appointment Id: {AppointmentId} Physician Name: {Physician.Name} {Day} at {Time}";
+        return $"Appointment Id: {AppointmentId} Physician Name: {PhysicianDTO.Name} {Day} at {Time}";
     }
 }
 

@@ -25,13 +25,5 @@ public partial class AddPhysicianView : ContentPage
 		//remove ref to selectedPhysician
 	}
 
-    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
-    {
-		
-		if (BindingContext is AddPhysicianViewModel vm){
-			vm.ResetForm(PhysicianId);
-		}
-		
-		
-    }
+    
 }

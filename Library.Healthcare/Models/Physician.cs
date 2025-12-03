@@ -12,6 +12,8 @@ public class Physician
     public string Specialization {get; set;}
     public bool Availability {get; set;}
 
+    public Physician(){}
+
     public Physician(int licenseNum, string name, string gradDate, string specialization)
     {
         var rand = new Random();

@@ -6,10 +6,11 @@ using Library.Healthcare.Services;
 using Library.Healthcare.DTO;
 using System;
 using System.Diagnostics;
+using Microsoft.Maui.Controls;
 
 namespace Maui.Healthcare.ViewModel;
 
-public partial class AddPhysicianViewModel : ObservableObject
+public partial class AddPhysicianViewModel : ObservableObject, IQueryAttributable
 {
     [ObservableProperty]
     private string licenceNumber;
@@ -60,6 +61,19 @@ public partial class AddPhysicianViewModel : ObservableObject
         };
 
     }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+{
+    if (query.TryGetValue("physicianId", out var idObj) && idObj != null)
+    {
+        int id = Convert.ToInt32(idObj);
+        ResetForm(id); 
+    }
+    else
+    {
+        ResetForm(0);
+    }
+}
 
     [RelayCommand]
     private async Task<bool> Submit(){  //need to add for edit instead of just add to list
